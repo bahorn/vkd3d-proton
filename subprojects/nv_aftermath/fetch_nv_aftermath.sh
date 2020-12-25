@@ -24,3 +24,7 @@ wget -O external/store/aftermath-linux.tar.gz $LINUX
 echo "EXTRACTING AFTERMATH"
 unzip external/store/aftermath-windows.zip -d external/windows
 tar -xzvf external/store/aftermath-linux.tar.gz -C external/linux
+
+# They differ only in line endings.
+echo "Extracting include/ from one."
+cp -r external/linux/include .

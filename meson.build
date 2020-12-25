@@ -56,8 +56,15 @@ if enable_nv_aftermath
 endif
 
 vkd3d_external_includes = [ './subprojects/Vulkan-Headers/include', './subprojects/SPIRV-Headers/include' ]
+
+if enable_nv_aftermath
+  vkd3d_external_includes += [ './subprojects/nv_aftermath/include' ]
+endif
+
 vkd3d_public_includes   = [ './include' ] + vkd3d_external_includes
 vkd3d_private_includes  = [ './include/private' ] + vkd3d_public_includes
+
+
 
 vkd3d_external_includes = include_directories(vkd3d_external_includes)
 vkd3d_public_includes   = include_directories(vkd3d_public_includes)
@@ -121,6 +128,11 @@ vkd3d_version = vcs_tag(
 
 dxil_spirv = subproject('dxil-spirv')
 dxil_spirv_dep = dxil_spirv.get_variable('dxil_spirv_dep')
+
+if enable_nv_aftermath
+  aftermath = subproject('nv_aftermath')
+  nv_aftermath = aftermath.get_variable('nv_aftermath_dep')
+endif
 
 subdir('include')
 subdir('libs')

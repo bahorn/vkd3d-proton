@@ -29,6 +29,10 @@
 #include "vkd3d_descriptor_debug.h"
 #endif
 
+#ifdef VKD3D_ENABLE_NV_AFTERMATH
+#include "GFSDK_Aftermath.h"
+#endif
+
 struct vkd3d_struct
 {
     enum vkd3d_structure_type type;

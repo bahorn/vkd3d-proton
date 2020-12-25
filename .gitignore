@@ -27,4 +27,4 @@ build
 build.native
 build.cross
 
-external
+subprojects/nv_aftermath/external

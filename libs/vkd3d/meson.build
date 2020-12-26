@@ -51,6 +51,11 @@ if enable_descriptor_qa
   vkd3d_src += ['descriptor_debug.c']
 endif
 
+if enable_nv_aftermath
+  vkd3d_extra_libs += [
+    dependency('nv_aftermath', fallback : ['nv_aftermath', 'nv_aftermath_dep'])]
+endif
+
 if not enable_d3d12
   vkd3d_lib = shared_library('vkd3d-proton', vkd3d_src, glsl_generator.process(vkd3d_shaders), vkd3d_build, vkd3d_version,
     dependencies        : [ vkd3d_common_dep, vkd3d_shader_dep ] + vkd3d_extra_libs,

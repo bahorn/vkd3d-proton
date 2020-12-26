@@ -30,7 +30,7 @@
 #endif
 
 #ifdef VKD3D_ENABLE_NV_AFTERMATH
-#include "GFSDK_Aftermath.h"
+#include "nv_aftermath.h"
 #endif
 
 struct vkd3d_struct
@@ -112,6 +112,7 @@ static const struct vkd3d_optional_extension_info optional_device_extensions[] =
     VK_EXTENSION(AMD_SHADER_CORE_PROPERTIES_2, AMD_shader_core_properties2),
     /* NV extensions */
     VK_EXTENSION(NV_SHADER_SM_BUILTINS, NV_shader_sm_builtins),
+    VK_EXTENSION(NV_DEVICE_DIAGNOSTICS_CONFIG, NV_device_diagnostics_config),
     /* VALVE extensions */
     VK_EXTENSION(VALVE_MUTABLE_DESCRIPTOR_TYPE, VALVE_mutable_descriptor_type),
 };
@@ -1862,6 +1863,10 @@ static HRESULT vkd3d_create_vk_device(struct d3d12_device *device,
 
     TRACE("device %p, create_info %p.\n", device, create_info);
 
+    #ifdef VKD3D_ENABLE_NV_AFTERMATH
+        enable_aftermath();
+    #endif
+
     physical_device = create_info->vk_physical_device;
     device_index = vkd3d_env_var_as_uint("VKD3D_VULKAN_DEVICE", ~0u);
     if ((!physical_device || device_index != ~0u)
@@ -2423,6 +2428,10 @@ static void d3d12_device_destroy(struct d3d12_device *device)
 {
     const struct vkd3d_vk_device_procs *vk_procs = &device->vk_procs;
     size_t i;
+
+    #ifdef VKD3D_ENABLE_NV_AFTERMATH
+        disable_aftermath();
+    #endif
 
     for (i = 0; i < device->scratch_buffer_count; i++)
         d3d12_device_destroy_scratch_buffer(device, &device->scratch_buffers[i]);

@@ -64,8 +64,6 @@ endif
 vkd3d_public_includes   = [ './include' ] + vkd3d_external_includes
 vkd3d_private_includes  = [ './include/private' ] + vkd3d_public_includes
 
-
-
 vkd3d_external_includes = include_directories(vkd3d_external_includes)
 vkd3d_public_includes   = include_directories(vkd3d_public_includes)
 vkd3d_private_includes  = include_directories(vkd3d_private_includes)
